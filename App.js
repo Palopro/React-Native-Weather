@@ -14,7 +14,9 @@ import {
   View,
   TextInput,
   Button,
-  ActivityIndicator
+  ActivityIndicator,
+  ToolbarAndroid,
+  StatusBar
 } from "react-native";
 import { connect } from "react-redux";
 import { getWeatherAction } from "./src/actions/actionCreator";
@@ -58,27 +60,64 @@ class App extends Component {
     const { weather } = this.props;
     console.log(weather);
     return (
-    <>
-      {weather && (
       <>
-        <Text>{`${weather.name}, ${weather.sys.country}`}</Text>
-        <Text>{weather.main.temp}</Text>
+        {weather && (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              elevation: 4,
+              borderColor: "#f1f1f1",
+              borderRadius: 4,
+              paddingTop: 4,
+              paddingBottom: 4,
+              marginStart: 6,
+              marginEnd: 6
+            }}
+          >
+            <Text>{`${weather.name}, ${weather.sys.country}`}</Text>
+            <Text>{`${Math.round(weather.main.temp)} ‎°C`}</Text>
+          </View>
+        )}
       </>
-    )}
-    </>
     );
   }
 
   _renderLoader() {
     const { loading, weather } = this.props;
     console.log(loading, weather);
-    return <>{loading ? <ActivityIndicator /> : this._renderWeather()}</>;
+    return (
+      <>
+        {loading ? (
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <ActivityIndicator size="large" />
+          </View>
+        ) : (
+          this._renderWeather()
+        )}
+      </>
+    );
   }
 
   render() {
     const { city, isFocused } = this.state;
     return (
       <View style={styles.container}>
+        <StatusBar backgroundColor="#1565C0" barStyle="light-content" />
+        <ToolbarAndroid
+          style={styles.toolbar}
+          title={"Awesome App"}
+          titleColor="#FFFFFF"
+        />
         <Text style={styles.welcome}>React Native Awesome App!</Text>
         <Text style={styles.instructions}>{instructions}</Text>
         <TextInput
@@ -89,15 +128,23 @@ class App extends Component {
           onChangeText={this._handleOnChange}
           value={city}
           placeholder="City"
-          selectionColor="#428AF8"
-          underlineColorAndroid={isFocused ? "#428AF8" : "#D3D3D3"}
+          caretHidden={false}
+          selectionColor={"#1976D2"}
+          underlineColorAndroid={isFocused ? "#1976D2" : "#D3D3D3"}
           keyboardType="default"
         />
-        <Button
-          color="#428AF8"
-          title="Search"
-          onPress={this._handleOnPressButton}
-        />
+        <View style={{ 
+          marginTop: 15, 
+          paddingStart: 8, 
+          paddingEnd: 8 
+          }}>
+          <Button
+            color="#009688"
+            title="Search"
+            onPress={this._handleOnPressButton}
+            disabled={!city}
+          />
+        </View>
         {this._renderLoader()}
       </View>
     );
@@ -124,6 +171,11 @@ const styles = StyleSheet.create({
     // justifyContent: "center",
     // alignItems: 'center',
     backgroundColor: "#F5FCFF"
+  },
+  toolbar: {
+    height: 56,
+    backgroundColor: "#1976D2",
+    color: "#FFFFFF"
   },
   welcome: {
     fontSize: 20,
