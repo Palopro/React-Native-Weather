@@ -1,13 +1,13 @@
-import React, {Component } from "react";
-import configStore from "./configStore";
-import { Provider } from "react-redux";
-import App from "../../App";
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import configStore from './configStore';
+import App from '../../App';
 
 export default class Setup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      store: configStore()
+      store: configStore(),
     };
   }
 

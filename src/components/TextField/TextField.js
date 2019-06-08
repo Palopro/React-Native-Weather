@@ -1,7 +1,14 @@
-import React from "react";
-import { TextInput, View, StyleSheet } from "react-native";
+import React from 'react';
+import { TextInput, View, StyleSheet } from 'react-native';
 
-const TextField = props => {
+const styles = StyleSheet.create({
+  textInput: {
+    height: 40,
+    paddingLeft: 6,
+  },
+});
+
+const TextField = (props) => {
   const {
     name,
     onBlur,
@@ -10,7 +17,7 @@ const TextField = props => {
     value,
     placeholder,
     keyboardType,
-    isFocused
+    isFocused,
   } = props;
   return (
     <View>
@@ -22,8 +29,8 @@ const TextField = props => {
         onChangeText={onChangeText}
         value={value}
         placeholder={placeholder}
-        selectionColor={"#1976D2"}
-        underlineColorAndroid={isFocused ? "#1976D2" : "#D3D3D3"}
+        selectionColor={'#1976D2'}
+        underlineColorAndroid={isFocused ? '#1976D2' : '#D3D3D3'}
         keyboardType={keyboardType}
       />
     </View>
@@ -31,10 +38,3 @@ const TextField = props => {
 };
 
 export default TextField;
-
-const styles = StyleSheet.create({
-  textInput: {
-    height: 40,
-    paddingLeft: 6
-  }
-});

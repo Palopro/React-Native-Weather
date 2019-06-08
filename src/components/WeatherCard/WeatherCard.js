@@ -1,29 +1,38 @@
-import React from "react";
+import React from 'react';
 // import { StyleSheet } from "react-native";
 
-import {Card, CardItem, Content, Text, Body} from 'native-base';
+import {
+  Card, CardItem, Content, Text, Body,
+} from 'native-base';
 
 
 const WeatherCard = (props) => {
-    const {weather}= props;
-// console.warn(weather);
-    return(
+  const { weather } = props;
+  // console.warn(weather);
+  return (
         <Content>
             <Card>
                 <CardItem header>
                     <Text>{`${weather.name}, ${weather.sys.country}`}</Text>
                 </CardItem>
+                <CardItem>
+                    <Body>
+                        <Text>{`${Math.floor(weather.main.temp)} ‎°C`}</Text>
+                        <Text>{weather.weather[0].main}</Text>
+                        <Text>{weather.weather[0].description}</Text>
+                    </Body>
+                </CardItem>
             </Card>
         </Content>
 
-        // <View style={styles.weatherCard}>
-        //     <Text>{`${weather.name}, ${weather.sys.country}`}</Text>
-        //     <Text>{`${Math.floor(weather.main.temp)} ‎°C`}</Text>
-        //     <Text>{weather.weather[0].main}</Text>
-        //     <Text>{weather.weather[0].description}</Text>
-        //   </View>
-    )
-}
+  // <View style={styles.weatherCard}>
+  //     <Text>{`${weather.name}, ${weather.sys.country}`}</Text>
+  //     <Text>{`${Math.floor(weather.main.temp)} ‎°C`}</Text>
+  //     <Text>{weather.weather[0].main}</Text>
+  //     <Text>{weather.weather[0].description}</Text>
+  //   </View>
+  );
+};
 
 export default WeatherCard;
 
